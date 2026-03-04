@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts fallback (loaded via index.html) ─── */
+@layer base {
+  :root {
+    --gold:        #D4AF37;
+    --gold-light:  #E8C84A;
+    --gold-dim:    rgba(212, 175, 55, 0.12);
+    --gold-border: rgba(212, 175, 55, 0.25);
+    --gold-glow:   rgba(212, 175, 55, 0.45);
+    --black:       #0B0B0B;
+    --black-2:     #111111;
+    --black-3:     #181818;
+    --cream:       #F4F1EA;
+    --cream-dim:   rgba(244, 241, 234, 0.60);
+    --cream-muted: rgba(244, 241, 234, 0.30);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    @apply bg-black- text-cream- font-body overflow-x-hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* ─── Noise texture overlay ─── */
+@layer components {
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+    opacity: 0.45;
+  }
+
+  /* ─── Gold divider ─── */
+  .gold-divider {
+    @apply w-full h-px;
+    background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+  }
+
+  /* ─── Section tag ─── */
+  .section-tag {
+    @apply flex items-center gap-3 text-gold text-[11px] font-bold tracking-[0.2em] uppercase mb-4;
+  }
+  .section-tag::before {
+    content: '';
+    @apply w-7 h-px bg-gold flex-shrink-0;
+  }
+
+  /* ─── Section heading ─── */
+  .section-heading {
+    @apply font-display font-normal leading-[1.05] tracking-[-0.01em];
+  }
+
+  /* ─── Buttons ─── */
+  .btn-gold {
+    @apply relative overflow-hidden inline-block px-10 py-[17px] bg-gold text-black- font-body text-[12px] font-extrabold tracking-[0.12em] uppercase transition-all duration-300 cursor-pointer border-none;
+  }
+  .btn-gold::before {
+    content: '';
+    @apply absolute top-0 -left-full w-full h-full;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    transition: left 0.55s;
+  }
+  .btn-gold:hover::before { left: 100%; }
+  .btn-gold:hover {
+    @apply shadow-gold;
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    @apply inline-block px-10 py-[17px] bg-transparent text-cream- font-body text-[12px] font-bold tracking-[0.12em] uppercase transition-all duration-300 cursor-pointer;
+    border: 1px solid rgba(244, 241, 234, 0.28);
+  }
+  .btn-outline:hover {
+    @apply text-gold;
+    border-color: var(--gold);
+    background: var(--gold-dim);
+  }
+
+  /* ─── Card hover glow ─── */
+  .card-hover {
+    @apply transition-all duration-350 relative overflow-hidden cursor-pointer;
+  }
+  .card-hover::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-350;
+    background: var(--gold-dim);
+  }
+  .card-hover::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-400;
+  }
+  .card-hover:hover::before { @apply opacity-100; }
+  .card-hover:hover::after  { @apply w-full; }
+  .card-hover:hover { @apply shadow-gold-lg -translate-y-0.5; }
+
+  /* ─── Reveal animation ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── Animated grid bg ─── */
+  .animated-grid {
+    @apply absolute inset-0 bg-grid-pattern bg-grid animate-grid-drift;
+  }
+
+  /* ─── Gold border left hover ─── */
+  .border-reveal {
+    @apply relative overflow-hidden;
+  }
+  .border-reveal::before {
+    content: '';
+    @apply absolute top-0 left-0 w-0.5 h-0 bg-gold transition-all duration-500;
+  }
+  .border-reveal:hover::before { @apply h-full; }
+
+  /* ─── Process connector line ─── */
+  .process-line {
+    @apply absolute top-8 left-0 right-0 h-px;
+    background: var(--gold-border);
+  }
+
+  /* ─── Testimonial scroll ─── */
+  .testimonial-track {
+    @apply flex gap-6 animate-scroll-left;
+    width: max-content;
+  }
+  .testimonial-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* ─── Utility extensions ─── */
+@layer utilities {
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #E8C84A 50%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-gold-dim {
+    border-color: var(--gold-border);
+  }
+
+  .bg-gold-dim {
+    background: var(--gold-dim);
+  }
+
+  .duration-350 { transition-duration: 350ms; }
+  .duration-400 { transition-duration: 400ms; }
+}
