@@ -76,7 +76,7 @@
 
   /* ─── Buttons ─── */
   .btn-gold {
-    @apply relative overflow-hidden inline-block px-10 py-[17px] bg-gold text-black-DEFAULT font-body text-[12px] font-extrabold tracking-[0.12em] uppercase transition-all duration-300 cursor-pointer border-none;
+    @apply relative overflow-hidden inline-block px-10 py-[17px] bg-gold text-black- font-body text-[12px] font-extrabold tracking-[0.12em] uppercase transition-all duration-300 cursor-pointer border-none;
   }
   .btn-gold::before {
     content: '';
@@ -92,7 +92,7 @@
   }
 
   .btn-outline {
-    @apply inline-block px-10 py-[17px] bg-transparent text-cream-DEFAULT font-body text-[12px] font-bold tracking-[0.12em] uppercase transition-all duration-300 cursor-pointer;
+    @apply inline-block px-10 py-[17px] bg-transparent text-cream- font-body text-[12px] font-bold tracking-[0.12em] uppercase transition-all duration-300 cursor-pointer;
     border: 1px solid rgba(244, 241, 234, 0.28);
   }
   .btn-outline:hover {
